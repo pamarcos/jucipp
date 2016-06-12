@@ -8,7 +8,6 @@ if [ "${cmake_command}" == "" ]; then
       mingw="mingw32"
     fi
     cmake_command="cmake -G\"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/${mingw} -DENABLE_TESTING=1 -DCMAKE_CXX_FLAGS=-Werror .."
-    make_command="make"
   else
     cmake_command="cmake -DENABLE_TESTING=1 -DCMAKE_CXX_FLAGS=-Werror .."
   fi
@@ -16,6 +15,9 @@ fi
 
 if [ "${make_command}" == "" ]; then
   make_command="make -j 2"
+  if [ "$APPVEYOR" != "" ]; then
+    make_command="make"
+  fi  
 fi
 
 cd jucipp || echo "Can't cd into jucipp"

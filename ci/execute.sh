@@ -6,6 +6,11 @@ function linux () {
     sudo rm ../build -rf
     return 0
   fi
+  if [ "${script}" == "static_analysis" ];then
+    if [ "${distribution}" != "arch" ]; then
+      return 0
+    fi  
+  fi
   sudo docker run -it \
     -e "CXX=$CXX" \
     -e "CC=$CC" \

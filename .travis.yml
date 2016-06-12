@@ -23,5 +23,6 @@ script:
   - script=compile CXX=clang++ CC=clang ./ci/execute.sh
   - script=clean ./ci/execute.sh
   - script=compile CXX=g++ CC=gcc ./ci/execute.sh
-  - script=static_analysis ./ci/execute.sh
   - script=compile make_command="broadwayd & CTEST_OUTPUT_ON_FAILURE=1 make test" ./ci/execute.sh
+  - if [ "${distribution}" == "arch" ] ; then script=clean ./ci/execute.sh ; fi
+  - if [ "${distribution}" == "arch" ] ; then script=static_analysis ./ci/execute.sh ; fi
